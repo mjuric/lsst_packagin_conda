@@ -108,7 +108,7 @@ def download_url(url, fp):
 	r = requests.get(url, stream=True)
 	r.raise_for_status()
 
-	for chunk in r.iter_content(chunk_size=10*1024*1024):
+	for chunk in r.iter_content(chunk_size=10*1024*1024): 
 		if chunk: # filter out keep-alive new chunks
 			fp.write(chunk)
 	fp.flush()
@@ -147,7 +147,7 @@ class Package(Base):
 	# Relationship to Channel
 	channel_id   = Column(Integer, ForeignKey('channels.id'))
 #	channel      = relationship("Channel", backref=backref("packages", order_by=id, lazy='dynamic'))
-
+	
 
 # From http://stackoverflow.com/a/6078058/897575
 #   model: class to query or create
@@ -218,7 +218,7 @@ class ReleaseDB(object):
 
 		filenames = [ pkg2fn[p.channel.urlbase][(p.name, p.version, p.build_number)] for p in to_upload ]
 		return filenames
-
+				
 	def hash_filelist(self, filelist, ignore_prefix='', open=open, verbose=False):
 		import hashlib
 		m = hashlib.sha1()
@@ -375,7 +375,7 @@ class ReleaseDB(object):
 		# Get all files (incl. those in directories) and sort them
 		def listfiles(dir):
 			for root, directories, filenames in os.walk(dir):
-				for filename in filenames:
+				for filename in filenames: 
 					yield os.path.join(root, filename)
 
 		filelist = list(listfiles(recipe_dir))
@@ -439,7 +439,7 @@ def eups_to_conda_version(product, eups_version):
 	#	<something_completely_different>	-> (<something_completely_different>, '', <buildnum>)
 	#
 
-	def parse_full_version(version):
+	def parse_full_version(version):	
 		match = re.match('^([^-]+)-([0-9]+)-g([0-9a-z]+)$', version)
 		if not match: return None, None
 
@@ -513,7 +513,7 @@ def fill_out_template(dest_file, template_file, **variables):
 		template = fp.read()
 
 	text = template % variables
-
+	
 	# strip template comments
 	text = re.sub(r'^#--.*\n', r'', text, flags=re.MULTILINE)
 
@@ -713,7 +713,7 @@ def gen_pypi_package(name, products, workdir):
 		import re
 		meta = re.sub(r'(^requirements:\n  build:)',  r'\1' + build_req, meta, count=1, flags=re.MULTILINE)
 		meta = re.sub(r'(^requirements:\n.*^  run:)', r'\1' +   run_req, meta, count=1, flags=re.MULTILINE | re.DOTALL)
-
+		
 		with open(metafn, "w") as fp:
 			fp.write(meta)
 
@@ -970,7 +970,7 @@ if __name__ == "__main__":
 
 	subparsers = tl_parser.add_subparsers()
 
-	# gen subcommand
+	# gen subcommand	
 	parser = subparsers.add_parser('build')
 	parser.add_argument("manifest", help="lsst_build-generated manifest file from which to read the package list and their versions. "
 		+ "If given as 'build:<buildtag>' (e.g., build:b1488), the manifest with that build ID will be looked up in versiondb.git. "
