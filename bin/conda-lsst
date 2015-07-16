@@ -218,7 +218,7 @@ class ReleaseDB(object):
 
 		filenames = [ pkg2fn[p.channel.urlbase][(p.name, p.version, p.build_number)] for p in to_upload ]
 		return filenames
-                                
+				 
 	def hash_filelist(self, filelist, ignore_prefix='', open=open, verbose=False):
 		import hashlib
 		m = hashlib.sha1()
