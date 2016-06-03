@@ -134,11 +134,9 @@ dependencies:
     build: [ "recipe/lsst-git-lfs-config" ]
   "*":
     run:
-      - "nomkl                         # [not osx]"
       - recipe/eups >=2.0.2
       - "libgcc >=4.8.5                # [not osx]"
     build:
-      - "nomkl                         # [not osx]"
       - recipe/eups >=2.0.2
       - "gcc ==4.8.5                   # [not osx]"
       - "patchelf ==0.8                # [not osx]"
@@ -151,8 +149,8 @@ dependencies:
 #
 pin_versions:
   numpy:
-    build: "==1.9"
-    run:   ">=1.9"
+    build: "==1.10.4"
+    run:   ">=1.10.4"
   python:
     build: "2.7.*"
     run:   "2.7.*"
