@@ -303,8 +303,11 @@ class RecipeMaker(object):
 
 		print "done."
 
-		fill_out_template(os.path.join(self.config.output_dir, 'rebuild.sh'), os.path.join(self.config.template_dir, 'rebuild.sh.template'),
+		r_sh = os.path.join(self.config.output_dir, 'rebuild.sh')
+
+		fill_out_template(r_sh, os.path.join(self.config.template_dir, 'rebuild.sh.template'),
 			output_dir = self.config.output_dir,
 			rebuilds = '\n'.join(rebuilds)
 			)
+		os.chmod(r_sh, 0755)
 
